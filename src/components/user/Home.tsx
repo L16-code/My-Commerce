@@ -19,7 +19,13 @@ const Home = () => {
     const isAuthenticated = useSelector((state: RootState) => state.root.isAuthenticated);
     const user_detail = useSelector((state: RootState) => state.root.user);
     const AuthStr = 'Bearer '.concat(user_detail?.token as string);
-
+    const [Ip, setIp]=useState();
+    const GetuserIp=async()=>{
+        const ip = await axios.get('https://ipapi.co/json')
+        setIp(ip.data.ip);
+        console.log(Ip);
+        console.log(ip)
+      }
     const GetProducts = async () => {
         const res = await axios.get(`http://localhost:5000/get-product`, {
             params: {
@@ -60,6 +66,7 @@ const Home = () => {
         if (searchData === '') {
             GetProducts();
             GetCategory();
+            GetuserIp()
         } else {
             const delayDebounceFn = setTimeout(() => {
                 GetProducts();
@@ -72,6 +79,7 @@ const Home = () => {
     return (
         <>
             <div>
+                <h1> {Ip}</h1>
                 <div style={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center' }}>
                     <h1 style={{ margin: "2rem", fontWeight: "bold" }}>Shopping Hub</h1>
                     <div style={{
