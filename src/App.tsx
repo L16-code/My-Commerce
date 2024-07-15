@@ -6,7 +6,7 @@ import axios from 'axios';
 function App() {
   const location = useLocation();
 
-  const [ip, setIp]=useState();
+  const [Ip, setIp]=useState();
   useEffect(() => {
     GetuserIp()
     ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
@@ -14,7 +14,7 @@ function App() {
   const GetuserIp=async()=>{
     const ip = await axios.get('https://ipapi.co/json')
     setIp(ip.data);
-    console.log(ip.data);
+    console.log(Ip);
   }
   return (
     <PublicRoutes />
